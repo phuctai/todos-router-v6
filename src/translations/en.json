@@ -1,0 +1,39 @@
+{
+	"app": {
+		"menu": {
+			"home": "Home"
+		},
+		"others": {
+			"or": "or",
+			"back-to-home": "Back to home",
+			"not-found-title": "Page not found",
+			"not-found-message": "Sorry, an error has occured, Requested page not found!"
+		},
+		"todos": {
+			"title": "What needs to be done ?",
+			"items": {
+				"left": "items left",
+				"all": "All",
+				"active": "Active",
+				"completed": "Completed"
+			},
+			"actions": {
+				"clear-completed": "Clear completed"
+			}
+		},
+		"user": {
+			"hello": "Hello",
+			"username": "Username",
+			"enter-your-username": "Enter your username",
+			"please-enter-your-username": "Please enter your username",
+			"password": "Password",
+			"enter-your-password": "Enter your password",
+			"please-enter-your-password": "Please enter your password",
+			"create-account": "Create a new user",
+			"signup": "Register",
+			"login": "Login",
+			"login-failed": "Login failed",
+			"logout": "Logout"
+		}
+	}
+}

@@ -1,0 +1,39 @@
+{
+	"app": {
+		"menu": {
+			"home": "Trang chủ"
+		},
+		"others": {
+			"or": "hoặc",
+			"back-to-home": "Trở về trang chủ",
+			"not-found-title": "Không tìm thấy trang",
+			"not-found-message": "Xin lỗi, đã xảy ra lỗi, không tìm thấy trang được yêu cầu!Sorry, an error has occured, Requested page not found!"
+		},
+		"todos": {
+			"title": "Nhập những việc cần làm ?",
+			"items": {
+				"left": "mục còn lại",
+				"all": "Tất cả",
+				"active": "Chưa xong",
+				"completed": "Đã xong"
+			},
+			"actions": {
+				"clear-completed": "Xóa các mục đã xong"
+			}
+		},
+		"user": {
+			"hello": "Xin chào",
+			"username": "Tên đăng nhập",
+			"enter-your-username": "Nhập tên đăng nhập của bạn",
+			"please-enter-your-username": "Vui lòng nhập tên đăng nhập",
+			"password": "Mật khẩu",
+			"enter-your-password": "Nhập mật khẩu của bạn",
+			"please-enter-your-password": "Vui lòng nhập mật khẩu",
+			"create-account": "Tạo tài khoản mới",
+			"signup": "Đăng ký",
+			"login": "Đăng nhập",
+			"login-failed": "Đăng nhập thất bại",
+			"logout": "Đăng xuất"
+		}
+	}
+}

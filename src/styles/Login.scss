@@ -1,0 +1,11 @@
+@import 'variables';
+
+.section-login {
+	width: 100%;
+	@include flex(center, center);
+
+	.card {
+		width: 100%;
+		max-width: 380px;
+	}
+}

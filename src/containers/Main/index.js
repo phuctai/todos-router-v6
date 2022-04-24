@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { appActions } from '../../store/actions/rootActions';
 import Header from './Layouts/Header';
 import Footer from './Layouts/Footer';
 
-class Main extends Component {
+class Main extends React.Component {
 	handleChangeLanguage = (language) => {
 		this.props.changeLanguage(language);
 	};
@@ -27,13 +27,13 @@ class Main extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		language: state.app.language
+		language: state.app.language,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		changeLanguage: (language) => dispatch(appActions.CHANGE_LANGUAGE(language))
+		changeLanguage: (language) => dispatch(appActions.CHANGE_LANGUAGE(language)),
 	};
 };
 

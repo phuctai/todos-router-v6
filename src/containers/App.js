@@ -10,6 +10,7 @@ import Home from './Main/Pages/Home';
 import Todos from './Main/Pages/Todos';
 import NotFound from './Main/Layouts/NotFound';
 import Login from './User/Login';
+import RequireAuth from '../components/RequireAuth';
 
 class App extends React.Component {
 	render() {
@@ -17,10 +18,21 @@ class App extends React.Component {
 			<>
 				<Router>
 					<Routes>
+						{/* Main */}
 						<Route path="/" element={<Main />}>
+							{/* General */}
 							<Route index element={<Home />} />
-							<Route path="todos" element={<Todos />} />
+
+							{/* Authentication requirement */}
+							<Route element={<RequireAuth />}>
+								<Route path="todos" element={<Todos />} />
+							</Route>
 						</Route>
+
+						{/* Authentication */}
+						<Route path="login" element={<Login />} />
+
+						{/* Not found */}
 						<Route path="404" element={<NotFound />} />
 						<Route path="*" element={<Navigate to="404" />} />
 					</Routes>

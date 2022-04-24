@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { userActions } from '../../store/actions/rootActions';
 import {
@@ -16,6 +16,7 @@ import {
 	Button,
 } from 'reactstrap';
 import { userLoginService } from '../../services/userService';
+import WithRouter from '../../utils/WithRouter';
 import '../../styles/Login.scss';
 
 class Login extends React.Component {
@@ -93,7 +94,10 @@ class Login extends React.Component {
 
 	render() {
 		const { username, password, isShowPassword, message } = this.state;
-		const { intl } = this.props;
+		const { isLoggedIn, intl, router } = this.props;
+		const queryParams = new URLSearchParams(router.location.search);
+		const redirectBack = queryParams.get('back');
+		const redirectPath = redirectBack || '/';
 		const langPlaceholders = {
 			username: intl.formatMessage({ id: 'app.user.enter-your-username' }),
 			password: intl.formatMessage({ id: 'app.user.enter-your-password' }),
@@ -102,87 +106,94 @@ class Login extends React.Component {
 
 		return (
 			<>
-				<div className="section-login">
-					<Card>
-						<CardHeader>
-							<FormattedMessage id="app.user.login" />
-						</CardHeader>
-						<CardBody>
-							{langMessage ? (
-								<div className={`alert alert-${message.type === 'error' ? 'danger' : 'success'}`}>
-									{langMessage}
-								</div>
-							) : (
-								''
-							)}
-							<Form>
-								<FormGroup>
-									<Label for="username">
-										<strong>
-											<FormattedMessage id="app.user.username" />:
-										</strong>
-									</Label>
-									<Input
-										type="text"
-										id="username"
-										name="username"
-										placeholder={langPlaceholders.username}
-										value={username}
-										onChange={(event) => this.handleOnChangeLogin(event, 'username')}
-										onKeyPress={(event) => this.handleOnKeyPressLogin(event)}
-									/>
-								</FormGroup>
-								<FormGroup>
-									<Label for="password">
-										<strong>
-											<FormattedMessage id="app.user.password" />:
-										</strong>
-									</Label>
-									<InputGroup>
+				{isLoggedIn ? (
+					<Navigate to={redirectPath} replace />
+				) : (
+					<div className="section-login">
+						<Card>
+							<CardHeader>
+								<FormattedMessage id="app.user.login" />
+							</CardHeader>
+							<CardBody>
+								{langMessage ? (
+									<div className={`alert alert-${message.type === 'error' ? 'danger' : 'success'}`}>
+										{langMessage}
+									</div>
+								) : (
+									''
+								)}
+								<Form>
+									<FormGroup>
+										<Label for="username">
+											<strong>
+												<FormattedMessage id="app.user.username" />:
+											</strong>
+										</Label>
 										<Input
-											type={isShowPassword ? 'text' : 'password'}
-											id="password"
-											name="password"
-											placeholder={langPlaceholders.password}
-											value={password}
-											onChange={(event) => this.handleOnChangeLogin(event, 'password')}
+											type="text"
+											id="username"
+											name="username"
+											placeholder={langPlaceholders.username}
+											value={username}
+											onChange={(event) => this.handleOnChangeLogin(event, 'username')}
 											onKeyPress={(event) => this.handleOnKeyPressLogin(event)}
 										/>
-										<InputGroupText onClick={() => this.handleOnClickShowHidePassword()}>
-											<i className={`fas ${isShowPassword ? ' fa-eye-slash' : 'fa-eye'}`}></i>
-										</InputGroupText>
-									</InputGroup>
-								</FormGroup>
-								<div className="text-center">
-									<Button
-										className="mb-2"
-										color="primary"
-										onClick={() => {
-											this.handleLogin();
-										}}
-									>
-										<FormattedMessage id="app.user.login" />
-									</Button>
+									</FormGroup>
+									<FormGroup>
+										<Label for="password">
+											<strong>
+												<FormattedMessage id="app.user.password" />:
+											</strong>
+										</Label>
+										<InputGroup>
+											<Input
+												type={isShowPassword ? 'text' : 'password'}
+												id="password"
+												name="password"
+												placeholder={langPlaceholders.password}
+												value={password}
+												onChange={(event) => this.handleOnChangeLogin(event, 'password')}
+												onKeyPress={(event) => this.handleOnKeyPressLogin(event)}
+											/>
+											<InputGroupText onClick={() => this.handleOnClickShowHidePassword()}>
+												<i className={`fas ${isShowPassword ? ' fa-eye-slash' : 'fa-eye'}`}></i>
+											</InputGroupText>
+										</InputGroup>
+									</FormGroup>
 									<div className="text-center">
-										<p className="mb-1">
-											<FormattedMessage id="app.others.or" />
-										</p>
-										<NavLink className="text-dark" to="/signup">
-											<FormattedMessage id="app.user.create-account" />
-										</NavLink>
+										<Button
+											className="mb-2"
+											color="primary"
+											onClick={() => {
+												this.handleLogin();
+											}}
+										>
+											<FormattedMessage id="app.user.login" />
+										</Button>
+										<div className="text-center">
+											<NavLink className="text-dark" to="/signup">
+												<FormattedMessage id="app.user.create-account" />
+											</NavLink>
+											{' / '}
+											<NavLink className="text-secondary" to="/">
+												<FormattedMessage id="app.others.back-to-home" />
+											</NavLink>
+										</div>
 									</div>
-								</div>
-							</Form>
-						</CardBody>
-					</Card>
-				</div>
+								</Form>
+							</CardBody>
+						</Card>
+					</div>
+				)}
 			</>
 		);
 	}
 }
 
 const mapStateToProps = (state) => {
-	return {};
+	return {
+		isLoggedIn: state.user.isLoggedIn,
+	};
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -191,4 +202,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Login));
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(WithRouter(Login)));

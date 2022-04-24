@@ -14,12 +14,12 @@ class Nav extends Component {
 					<div className="nav-list">
 						<ul>
 							<li>
-								<NavLink exact activeClassName="active" to="/">
+								<NavLink activeclassname="active" to="">
 									<FormattedMessage id="app.menu.home" />
 								</NavLink>
 							</li>
 							<li>
-								<NavLink activeClassName="active" to="/todos">
+								<NavLink activeclassname="active" to="/todos">
 									Todos
 								</NavLink>
 							</li>

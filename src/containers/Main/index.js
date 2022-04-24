@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { isAuthenticatedHoC, isNotAuthenticatedHoC } from '../../hoc/AuthenticationHoC';
+import { Outlet } from 'react-router-dom';
 import { appActions } from '../../store/actions/rootActions';
 import Header from './Layouts/Header';
 import Footer from './Layouts/Footer';
-import Home from './Pages/Home';
-import Todos from './Pages/Todos';
-import NotFound from './Layouts/NotFound';
-import Login from '../User/Login';
 
-class Page extends Component {
+class Main extends Component {
 	handleChangeLanguage = (language) => {
 		this.props.changeLanguage(language);
 	};
@@ -22,18 +17,7 @@ class Page extends Component {
 			<>
 				<Header language={language} handleChangeLanguage={this.handleChangeLanguage} />
 				<div className="container py-5">
-					<Switch>
-						<Route path="/" exact component={Home} />
-						<Route path="/login" component={isNotAuthenticatedHoC(Login)} />
-						<Route path="/todos" exact component={isAuthenticatedHoC(Todos)} />
-						<Route path="/404" component={NotFound} />
-						<Route
-							path="*"
-							component={() => {
-								return <Redirect to="/404" />;
-							}}
-						/>
-					</Switch>
+					<Outlet />
 				</div>
 				<Footer />
 			</>
@@ -53,4 +37,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Page);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

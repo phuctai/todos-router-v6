@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Outlet, Navigate } from 'react-router-dom';
-import WithRouter from '../utils/WithRouter';
+import WithRouter from '../hoc/WithRouter';
 
 class RequireAuth extends React.Component {
 	render() {
 		const { isLoggedIn, router } = this.props;
 		const { location } = router;
 		const back = (location.pathname !== '/' && `?back=${location.pathname}`) || '';
-		return <>{isLoggedIn ? <Outlet /> : <Navigate to={`login${back}`} />}</>;
+		return <>{isLoggedIn ? <Outlet /> : <Navigate to={`login${back}`} replace />}</>;
 	}
 }
 

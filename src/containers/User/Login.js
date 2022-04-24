@@ -16,7 +16,7 @@ import {
 	Button,
 } from 'reactstrap';
 import { userLoginService } from '../../services/userService';
-import WithRouter from '../../utils/WithRouter';
+import WithRouter from '../../hoc/WithRouter';
 import '../../styles/Login.scss';
 
 class Login extends React.Component {
